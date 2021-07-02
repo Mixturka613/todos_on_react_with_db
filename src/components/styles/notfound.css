@@ -1,0 +1,11 @@
+.pagenotfound {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagenotfound__title {
+    margin: 100px 0;
+    font-size: 40px;
+    font-family: "Poppins", sans-serif;
+}

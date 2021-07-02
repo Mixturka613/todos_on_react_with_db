@@ -1,0 +1,50 @@
+.login {
+    margin: 0 auto;
+    width: 400px;
+    font-family: "Poppins", sans-serif;
+}
+
+.login__inner {
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 15px 0 rgb(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.login__title {
+    text-align: center;
+}
+
+.login__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form_def {
+    border: none;
+    background: #fff;
+    box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.3);
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 15px;
+    outline: none;
+    border-radius: 5px;
+}
+
+.form__btn {
+    padding: 10px;
+    margin: 10px 0;
+    background: rgb(182, 255, 219);
+    font-size: 15px;
+    transition: 0.3s ease-in-out;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.form__btn:hover {
+    background: rgb(108, 255, 181);
+}

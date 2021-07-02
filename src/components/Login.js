@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './styles/login.css'
 
 function Login() {
 
@@ -42,8 +43,8 @@ function Login() {
             <div className="login__inner">
                 <h1 className="login__title">Login</h1>
                 <form className="login__form">
-                    <input value={login} onChange={(e) => setLogin(e.target.value)} className="form__login" type="text" placeholder="Login..." />
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} className="form__password" type="password" placeholder="Password..." />
+                    <input value={login} onChange={(e) => setLogin(e.target.value)} className="form__login form_def" type="text" placeholder="Login..." />
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} className="form__password form_def" type="password" placeholder="Password..." />
                     <button className="form__btn" onClick={e => { validat(e) }}>Login</button>
                 </form>
             </div>
