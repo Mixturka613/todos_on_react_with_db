@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import TodosList from "./components/TodosList";
 import TodosAdd from './components/TodosAdd'
 
 //style
 import './App.css'
+import Loader from './components/Loader';
 
 function App() {
-  const [value, setValue] = useState([])
+  const [value, setValue] = useState([
+    {id: 1, done: false, text: "gello"}
+  ])
+  const [loading, setLoading] = useState(true)
+
+  useEffect( () => {
+      setTimeout( () => {
+        setLoading(false)
+      }, 2000)
+  }, [])
 
   function changeDone(id) {
     setValue(value.map(todo => {
@@ -39,11 +49,20 @@ function App() {
         <hr />
 
         <ul className="list">
-          {value.map(item => {
-            return <TodosList item={item} key={item.id} changeDone={changeDone} deletTodo={deletTodo} />
-          })}
-        </ul>
 
+          {loading ? (
+            <Loader />
+          ) : (
+            value.length ? (
+              value.map(item => {
+                return <TodosList item={item} key={item.id} changeDone={changeDone} deletTodo={deletTodo} />
+              })
+          ) : (
+            <p className="clear_todo">None...</p>
+          )
+          )
+          }
+        </ul>
 
       </div>
 
