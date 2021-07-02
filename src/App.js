@@ -7,11 +7,7 @@ import TodosAdd from './components/TodosAdd'
 import './App.css'
 
 function App() {
-  const [value, setValue] = useState([
-    { id: 1, done: false, text: 'Купить хлеб' },
-    { id: 2, done: false, text: 'Купить молоко' },
-    { id: 3, done: false, text: 'Купить Машину' },
-  ])
+  const [value, setValue] = useState([])
 
   function changeDone(id) {
     setValue(value.map(todo => {
@@ -26,13 +22,19 @@ function App() {
     setValue(value.filter(item => item.id !== id))
   }
 
+  function createDo(text) {
+    setValue(value.concat([
+      {id: Date.now(), done: false, text: text.toString()}
+    ]))
+  }
+
   return (
     <div className="container">
 
       <div className="todos">
         <h1 className="todos__title">Todos</h1>
 
-        <TodosAdd />
+        <TodosAdd createDo={createDo} />
 
         <hr />
 

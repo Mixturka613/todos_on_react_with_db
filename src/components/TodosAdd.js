@@ -2,12 +2,17 @@ import { useState } from 'react'
 
 function TodosList(props) {
 
-    const [value, setValue] = useState('')
+    let [AddValue, setAddValue] = useState('')
 
     return (
         <div className="add">
-            <input value={value} onChange={(e) => { setValue() }} className="add__input" placeholder="New do..." />
-            <button className="add__btn">Add</button>
+            <input value={AddValue} onChange={(e) => { setAddValue(e.target.value)}} className="add__input" placeholder="New do..." />
+            <button className="add__btn" onClick={(e) => {
+                if(AddValue) {
+                    props.createDo(AddValue);
+                    setAddValue('')
+                }
+            }}>Add</button>
         </div>
     );
 }
