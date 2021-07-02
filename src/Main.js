@@ -8,15 +8,21 @@ import './App.css'
 import Loader from './components/Loader';
 
 function App() {
-  const [value, setValue] = useState([
-    {id: 1, done: false, text: "gello"}
-  ])
+  const [value, setValue] = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect( () => {
-      setTimeout( () => {
+  useEffect(() => {
+    fetch('http://localhost:5050/api/todo')
+      .then(res => res.json())
+      .then(data => {
+        if (data.message) {
+          window.location.replace(`/login`);
+        }
         setLoading(false)
-      }, 2000)
+      })
+      .catch(e => {
+        console.log("Ошибка запроса")
+      })
   }, [])
 
   function changeDone(id) {
@@ -34,7 +40,7 @@ function App() {
 
   function createDo(text) {
     setValue(value.concat([
-      {id: Date.now(), done: false, text: text.toString()}
+      { id: Date.now(), done: false, text: text.toString() }
     ]))
   }
 
@@ -57,9 +63,9 @@ function App() {
               value.map(item => {
                 return <TodosList item={item} key={item.id} changeDone={changeDone} deletTodo={deletTodo} />
               })
-          ) : (
-            <p className="clear_todo">None...</p>
-          )
+            ) : (
+              <p className="clear_todo">None...</p>
+            )
           )
           }
         </ul>
