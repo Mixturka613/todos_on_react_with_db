@@ -13,8 +13,7 @@ router.post('/registration', userControllers.registration)
 router.post('/login', userControllers.login)
 
 //todsControllers
-router.get('/todo', authMiddleware, todsControllers.getTodoList)
-
+router.post('/todo', authMiddleware, todsControllers.getTodoList)
 router.put('/update', authMiddleware, todsControllers.updateTodo)
 router.delete('/delete', authMiddleware, todsControllers.deletTodo)
 router.post('/create', authMiddleware, todsControllers.createTodo)

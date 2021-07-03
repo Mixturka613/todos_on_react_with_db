@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
 
 import TodosList from "./components/TodosList";
 import TodosAdd from './components/TodosAdd'
+
+//Logica
+import { SendMess, deleteDo, updateDo } from './components/Update.js'
 
 //style
 import './App.css'
@@ -12,15 +16,37 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:5050/api/todo')
+    const tocken = Cookies.get('tocken')
+
+    fetch('http://localhost:5050/api/todo', {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tocken: tocken
+      })
+    })
       .then(res => res.json())
       .then(data => {
         if (data.message) {
           window.location.replace(`/login`);
         }
+        let obj = [];
+        data.forEach(item => {
+          obj.push({
+            id: item.idDo,
+            text: item.text,
+            done: item.done
+          })
+        })
+
+        if (obj.length !== 0) {
+          setValue(obj)
+        }
+
         setLoading(false)
       })
       .catch(e => {
+        console.log(e)
         console.log("Ошибка запроса")
       })
   }, [])
@@ -32,16 +58,23 @@ function App() {
       }
       return todo
     }))
+    updateDo(id, Cookies.get('tocken'))
   }
 
   function deletTodo(id) {
     setValue(value.filter(item => item.id !== id))
+    deleteDo(id, Cookies.get('tocken'))
   }
 
-  function createDo(text) {
+  async function createDo(text) {
+    const newDo = { id: Date.now(), done: false, text: text.toString() }
     setValue(value.concat([
-      { id: Date.now(), done: false, text: text.toString() }
-    ]))
+      newDo
+    ]));
+    SendMess({
+      ...newDo,
+      tocken: Cookies.get('tocken')
+    })
   }
 
   return (

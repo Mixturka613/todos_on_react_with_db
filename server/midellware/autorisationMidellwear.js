@@ -6,7 +6,7 @@ module.exports = function (req, res, next) {
     }
 
     try {
-        const tocken = req.headers.authorisation
+        const tocken = req.body.tocken
 
         if (!tocken) {
             return res.status(403).json({ message: "Пользователь не авторизован" })

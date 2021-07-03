@@ -1,7 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie'
 import './styles/login.css'
 
 function Login() {
+
+    useEffect(() => {
+        if (Cookies.get('tocken')) {
+            window.location.replace(`/`);
+        }
+    }, []);
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
@@ -34,6 +41,12 @@ function Login() {
             .then(data => {
                 if (data.message) {
                     alert(data.message)
+                }
+                if (data.tocken) {
+                    Cookies.set('tocken', data.tocken)
+                    if (Cookies.get('tocken')) {
+                        window.location.replace(`/`);
+                    }
                 }
             })
     }

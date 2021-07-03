@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const generateID = require('generate_id');
 const jwt = require('jsonwebtoken')
-
+const Cookies = require('universal-cookie');
 
 // Models
 const userModel = require('../models/userModel')
@@ -10,7 +10,6 @@ class userControllers {
 
     async registration(req, res) {
         try {
-            console.log(req.cookies)
             const { login, password } = req.body;
             const candidate = await userModel.findOne({ login: login })
             if (candidate) {
@@ -32,10 +31,13 @@ class userControllers {
             const user = await new userModel(newUser)
             user.save()
 
+            const cookies = new Cookies(req.headers.cookie);
+            cookies.set("tocken", tocken)
+
             return res.json({
                 ...newUser,
                 tocken: tocken
-            }).setHeader('authorisation', tocken)
+            })
 
         } catch (e) {
             console.log(e)
@@ -57,6 +59,8 @@ class userControllers {
             }
 
             const tocken = await jwt.sign({ id: candidate.id, login: login }, process.env.SECRETKEY)
+
+            // console.log('Cookies: ', req.cookies)
 
             return res.json({
                 id: candidate.id,

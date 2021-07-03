@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie'
 
 import './styles/login.css'
 
 function Registration() {
+
+    useEffect(() => {
+        if (Cookies.get('tocken')) {
+            window.location.replace(`/`);
+        }
+    }, []);
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
@@ -15,6 +22,9 @@ function Registration() {
         }
         if (password.length < 4) {
             return alert("Пароль должен быть не менее 4 цифр")
+        }
+        if (password !== RPassword) {
+            return alert("Пароли не совпадают")
         }
 
         loginFetch({
@@ -36,6 +46,12 @@ function Registration() {
             .then(data => {
                 if (data.message) {
                     alert(data.message)
+                }
+                if (data.tocken) {
+                    Cookies.set('tocken', data.tocken)
+                    if (Cookies.get('tocken')) {
+                        window.location.replace(`/`);
+                    }
                 }
             })
     }
