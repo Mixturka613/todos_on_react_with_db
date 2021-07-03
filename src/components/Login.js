@@ -15,8 +15,8 @@ function Login() {
 
     function validat(e) {
         e.preventDefault();
-        if (login.length < 2) {
-            return alert("Логин должен быть не менее 2 цифр")
+        if (login.length < 4) {
+            return alert("Логин должен быть не менее 4 цифр")
         }
         if (password.length < 4) {
             return alert("Пароль должен быть не менее 4 цифр")
@@ -29,7 +29,7 @@ function Login() {
     }
 
     function loginFetch(props) {
-        fetch('http://localhost:5050/api/login', {
+        fetch('http://192.168.1.4:5050/api/login', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -40,7 +40,7 @@ function Login() {
             .then(res => res.json())
             .then(data => {
                 if (data.message) {
-                    alert(data.message)
+                    return alert('This username already exists')
                 }
                 if (data.tocken) {
                     Cookies.set('tocken', data.tocken)
@@ -56,10 +56,13 @@ function Login() {
             <div className="login__inner">
                 <h1 className="login__title">Login</h1>
                 <form className="login__form">
-                    <input value={login} onChange={(e) => setLogin(e.target.value)} className="form__login form_def" type="text" placeholder="Login..." />
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} className="form__password form_def" type="password" placeholder="Password..." />
+                    <input value={login} onChange={(e) => setLogin(e.target.value)} className="form__login form_def" type="text" placeholder="Login..." required />
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} className="form__password form_def" type="password" placeholder="Password..." required />
                     <button className="form__btn" onClick={e => { validat(e) }}>Login</button>
                 </form>
+                <div className="link__block">
+                    <a className="link" href="/registration">Register</a>
+                </div>
             </div>
         </div>
     );

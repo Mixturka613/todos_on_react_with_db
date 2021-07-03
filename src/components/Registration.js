@@ -17,14 +17,14 @@ function Registration() {
 
     function validate(e) {
         e.preventDefault();
-        if (login.length < 2) {
-            return alert("Логин должен быть не менее 2 цифр")
+        if (login.length < 4) {
+            return alert('The login must consist of at least 4 cmvols')
         }
         if (password.length < 4) {
-            return alert("Пароль должен быть не менее 4 цифр")
+            return alert('The password must be at least 4 characters long')
         }
         if (password !== RPassword) {
-            return alert("Пароли не совпадают")
+            return alert('Passwords don\'t match')
         }
 
         loginFetch({
@@ -34,7 +34,7 @@ function Registration() {
     }
 
     function loginFetch(props) {
-        fetch('http://localhost:5050/api/registration', {
+        fetch('http://192.168.1.4:5050/api/registration', {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -45,7 +45,7 @@ function Registration() {
             .then(res => res.json())
             .then(data => {
                 if (data.message) {
-                    alert(data.message)
+                    return alert('This username already exists')
                 }
                 if (data.tocken) {
                     Cookies.set('tocken', data.tocken)
@@ -61,13 +61,18 @@ function Registration() {
             <div className="login__inner">
                 <h1 className="login__title">Registration</h1>
                 <form className="login__form">
-                    <input value={login} onChange={(e) => setLogin(e.target.value)} className="form__login form_def" type="text" placeholder="Login..." />
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} className="form__password form_def" type="password" placeholder="Password..." />
-                    <input value={RPassword} onChange={(e) => setRPassword(e.target.value)} className="form__password form_def" type="password" placeholder="Repeat Password..." />
+
+                    <input value={login} onChange={(e) => setLogin(e.target.value)} className="form__login form_def" type="text" placeholder="Login..." required />
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} className="form__password form_def" type="password" placeholder="Password..." required />
+                    <input value={RPassword} onChange={(e) => setRPassword(e.target.value)} className="form__password form_def" type="password" placeholder="Repeat Password..." required />
                     <button className="form__btn" onClick={e => { validate(e) }}>Login</button>
+
                 </form>
+                <div className="link__block">
+                    <a className="link" href="/login">Login</a>
+                </div>
             </div>
-        </div>
+        </div >
     );
 }
 

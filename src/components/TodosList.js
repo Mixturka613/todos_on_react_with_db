@@ -5,9 +5,11 @@ function TodosList(props) {
     }
     return (
         <li className="list__item">
-            <input onChange={() => { props.changeDone(props.item.id) }} className="list__itme-done" type="checkbox"></input>
+            <input id={props.item.id} onChange={() => { props.changeDone(props.item.id) }} className="list__itme-done" type="checkbox"></input>
 
-            <h4 className={"list__item-text " + classes.join('')}>{props.item.text}</h4>
+            <label for={props.item.id} className="list__text">
+                <h4 className={"list__item-text " + classes.join('')}>{props.item.text}</h4>
+            </label>
 
             <button onClick={(e) => { props.deletTodo(props.item.id) }} className="list__delet-item"></button>
         </li>

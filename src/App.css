@@ -69,15 +69,21 @@
 .list__item {
     display: flex;
     width: 100%;
-    align-items: center;
+    align-items: flex-start;
     box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.3);
     padding: 10px;
     border-radius: 5px;
     margin: 10px 0;
+    justify-content: space-between;
 }
 
 .list__itme-done {
     flex: 0.5;
+    display: none;
+}
+
+.list__text {
+    flex: 1;
 }
 
 .clear_todo {
@@ -96,10 +102,10 @@
 }
 
 .list__delet-item {
-    flex: 0.35;
+    flex: 0.09;
     border: none;
     width: 20px;
-    height: 20px;
+    height: 28px;
     background-image: url(./components/img/remove_start.png);
     background-size: cover;
     cursor: pointer;
@@ -114,8 +120,8 @@
     display: inline-block;
     width: 80px;
     height: 80px;
-  }
-  .lds-dual-ring:after {
+}
+.lds-dual-ring:after {
     content: " ";
     display: block;
     width: 40px;
@@ -125,13 +131,22 @@
     border: 6px solid rgb(108, 255, 181);
     border-color: rgb(108, 255, 181) transparent rgb(108, 255, 181) transparent;
     animation: lds-dual-ring 1.2s linear infinite;
-  }
-  @keyframes lds-dual-ring {
+}
+@keyframes lds-dual-ring {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     100% {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
-  
+}
+
+.link__block {
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px 0;
+}
+
+.link {
+    color: #000;
+}

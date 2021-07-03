@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     const tocken = Cookies.get('tocken')
 
-    fetch('http://localhost:5050/api/todo', {
+    fetch('http://192.168.1.4:5050/api/todo', {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

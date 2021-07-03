@@ -1,6 +1,8 @@
+const linkServ = 'http://192.168.1.4:5050/api/'
+
 export function SendMess(props) {
     const { id, text, tocken } = props;
-    fetch('http://localhost:5050/api/create', {
+    fetch(`${linkServ}create`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -16,7 +18,7 @@ export function SendMess(props) {
 }
 
 export function deleteDo(id, tocken) {
-    fetch('http://localhost:5050/api/delete', {
+    fetch(`${linkServ}delete`, {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -31,8 +33,8 @@ export function deleteDo(id, tocken) {
 }
 
 export function updateDo(id, tocken) {
-    fetch('http://localhost:5050/api/update', {
-        method: "DELETE",
+    fetch(`${linkServ}update`, {
+        method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             tocken: tocken,
