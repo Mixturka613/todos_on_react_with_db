@@ -48,3 +48,15 @@
 .form__btn:hover {
     background: rgb(108, 255, 181);
 }
+
+@media (max-width: 418px) {
+    .login {
+        width: 300px;
+    }
+}
+
+@media (max-width: 318px) {
+    .login {
+        width: 250px;
+    }
+}

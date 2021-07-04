@@ -150,3 +150,17 @@
 .link {
     color: #000;
 }
+
+@media (max-width: 418px) {
+    .container {
+        margin: 0 auto;
+        width: 300px;
+    }
+}
+
+@media (max-width: 318px) {
+    .container {
+        margin: 0 auto;
+        width: 250px;
+    }
+}
